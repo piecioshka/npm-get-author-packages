@@ -1,0 +1,40 @@
+{
+  "private": true,
+  "name": "npm-get-author-packages",
+  "description": "🔨 Display projects of user from npm registry",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Piotr Kowalski",
+    "email": "piecioshka@gmail.com",
+    "url": "https://piecioshka.pl/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/piecioshka/npm-get-author-packages.git"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "bin",
+    "package.json",
+    "README.md"
+  ],
+  "keywords": [
+    "cli",
+    "npm",
+    "packages",
+    "author",
+    "get",
+    "list",
+    "projects",
+    "user",
+    "registry",
+    "search",
+    "find"
+  ],
+  "bin": {
+    "npm-get-author-packages": "bin/cli.js"
+  }
+}
