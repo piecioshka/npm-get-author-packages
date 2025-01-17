@@ -8,13 +8,25 @@ if (!user) {
 }
 
 const displayTypeScript = () => {
-  const blueBackgroundWhiteText = "\x1b[48;2;48;120;198;38;2;255;255;255m";
+  const style = "\x1b[48;2;48;120;198;38;2;255;255;255m";
   const resetStyle = "\x1b[0m";
-  return `${blueBackgroundWhiteText} TS ${resetStyle}`;
+  return `${style} TS ${resetStyle}`;
 };
 
-const template = ({ date, name, hasTypes }) =>
-  `- [${date.toISOString()}] ${name} ${hasTypes ? displayTypeScript() : ""}`;
+const displayCLI = () => {
+  const style = "\x1b[48;2;48;72;94;38;2;255;255;255m";
+  const resetStyle = "\x1b[0m";
+  return `${style} CLI ${resetStyle}`;
+};
+
+const template = ({ date, name, hasTypes, isCLI }) => {
+  const ts = hasTypes ? displayTypeScript() : "";
+  const cli = isCLI ? displayCLI() : "";
+  const output = [`- [${date.toISOString()}] ${name}`];
+  ts && output.push(ts);
+  cli && output.push(cli);
+  return output.join(" ");
+};
 
 async function makeRequest(url) {
   const response = await fetch(url);
@@ -38,7 +50,7 @@ async function* fetchUserPackages(username) {
 
     if (!done) {
       console.log(
-        `Fetched ${Math.min(data.total, from + maxSize)} packages...`,
+        `Fetched ${Math.min(data.total, from + maxSize)} packages...`
       );
       from += maxSize;
     } else {
@@ -53,6 +65,7 @@ async function getUserPackages(username) {
 
   for await (const package of packages) {
     const packageName = package.name;
+    const isCLI = package.keywords.includes("cli");
     const packageUrl = `https://registry.npmjs.org/${packageName}`;
     const packageData = await makeRequest(packageUrl);
 
@@ -66,6 +79,7 @@ async function getUserPackages(username) {
       date: createdAt,
       name: packageName,
       hasTypes,
+      isCLI,
     });
   }
 
