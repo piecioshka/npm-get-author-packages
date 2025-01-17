@@ -1,6 +1,6 @@
 # npm-get-author-packages
 
-[![cli-available](https://badgen.net/static/cli/available/?icon=terminal)](https://runkit.com/npm/npm-get-author-packages)
+[![cli-available](https://badgen.net/static/cli/available/?icon=terminal)](#cli)
 [![node version](https://img.shields.io/node/v/npm-get-author-packages.svg)](https://www.npmjs.com/package/npm-get-author-packages)
 [![npm version](https://badge.fury.io/js/npm-get-author-packages.svg)](https://badge.fury.io/js/npm-get-author-packages)
 [![downloads count](https://img.shields.io/npm/dt/npm-get-author-packages.svg)](https://www.npmjs.com/package/npm-get-author-packages)
