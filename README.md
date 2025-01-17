@@ -14,6 +14,8 @@
 ## Features
 
 - ✅ List all npm packages of author
+- ✅ Add `[TS]` icon if package is written in TypeScript
+- ✅ Add `[CLI]` icon if package support CLI
 
 ## CLI
 
