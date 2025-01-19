@@ -26,16 +26,21 @@ npm install -g npm-get-author-packages
 ```
 
 ```bash
+npm-get-author-packages <username>
+```
+
+## Example
+
+```bash
 npm-get-author-packages piecioshka
 ```
 
 ```bash
-Found 44 packages:
-- [2015-08-20T10:19:08.710Z] vanilla-javascript
-- [2015-10-07T14:57:45.900Z] eslint-config-piecioshka
-- [2015-10-13T22:15:34.840Z] export-eslint-config
-- [2015-10-23T15:20:51.102Z] complete-string  TS
-- [2015-10-25T14:34:14.459Z] underscore.assert
+Found 44 package(s):
+- 2015-08-20 vanilla-javascript v1.1.5
+- 2015-10-07 eslint-config-piecioshka v2.3.6
+- 2015-10-13 export-eslint-config v1.1.6  CLI
+- 2015-10-23 complete-string v3.0.0  TS
 # ...
 ```
 
