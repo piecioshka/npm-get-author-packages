@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "npm-get-author-packages",
   "description": "🔨 Display npm author packages with creation date",
   "version": "0.0.0",
