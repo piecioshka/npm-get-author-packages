@@ -1,7 +1,7 @@
 {
   "name": "npm-get-author-packages",
   "description": "🔨 Display npm author packages with creation date",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "author": {
     "name": "Piotr Kowalski",
