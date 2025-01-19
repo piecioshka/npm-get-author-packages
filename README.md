@@ -46,7 +46,7 @@ Feel free to check [issues page](https://github.com/piecioshka/npm-get-author-pa
 
 ## Related
 
-- [npm-list-author-packages](https://github.com/kgryte/npm-list-author-packages)
+- [npm-list-author-packages](https://github.com/kgryte/npm-list-author-packages) — A similar project but not maintained for the last 9 years _(WARNING: not working anymore)_
 
 ## License
 
