@@ -7,13 +7,13 @@
 [![size](https://packagephobia.com/badge?p=npm-get-author-packages)](https://packagephobia.com/result?p=npm-get-author-packages)
 [![license](https://img.shields.io/npm/l/npm-get-author-packages.svg)](https://piecioshka.mit-license.org)
 
-🔨 Display projects of user from npm registry
+🔨 Display npm author packages with the creation date
 
 > Give a ⭐️ if this project helped you!
 
 ## Features
 
-- ✅ List all npm packages of author
+- ✅ Show a list of all npm packages of the passed author with the creation date
 - ✅ Add `[TS]` icon if package is written in TypeScript
 - ✅ Add `[CLI]` icon if package support CLI
 
@@ -46,7 +46,8 @@ Feel free to check [issues page](https://github.com/piecioshka/npm-get-author-pa
 
 ## Related
 
-- [npm-list-author-packages](https://github.com/kgryte/npm-list-author-packages) — A similar project but not maintained for the last 9 years _(WARNING: not working anymore)_
+- [npm-list-author-packages](https://github.com/kgryte/npm-list-author-packages) — A similar project but not maintained for the last 9 years
+  - ⚠️ WARNING: not working anymore
 
 ## License
 

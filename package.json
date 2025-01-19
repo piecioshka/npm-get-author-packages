@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "npm-get-author-packages",
-  "description": "🔨 Display projects of user from npm registry",
+  "description": "🔨 Display npm author packages with creation date",
   "version": "0.0.0",
   "license": "MIT",
   "author": {
@@ -27,6 +27,8 @@
     "packages",
     "author",
     "get",
+    "display",
+    "show",
     "list",
     "projects",
     "user",
