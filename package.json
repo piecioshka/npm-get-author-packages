@@ -37,5 +37,8 @@
   ],
   "bin": {
     "npm-get-author-packages": "bin/cli.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.130"
   }
 }
