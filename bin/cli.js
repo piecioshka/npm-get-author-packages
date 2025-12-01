@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 const user = process.argv[2];
+const withDependencies = process.argv.includes("--with-dependencies");
 
 if (!user) {
-  console.log("Usage: npm-get-author-packages <username>");
+  console.log(
+    "Usage: npm-get-author-packages <username> [--with-dependencies]"
+  );
   process.exit(1);
 }
 
@@ -12,6 +15,9 @@ const versionStyle = "\x1b[38;2;76;84;84m";
 const redText = "\x1b[38;2;234;68;87m";
 const orangeText = "\x1b[38;2;255;205;76m";
 const reset = "\x1b[0m";
+const blueText = "\x1b[38;2;33;150;243m";
+const yellowText = "\x1b[38;2;255;235;59m";
+const italic = "\x1b[3m";
 
 const printError = (text) => console.error(`${redText}${text}${reset}`);
 const printWarning = (text) => console.warn(`${orangeText}${text}${reset}`);
@@ -26,7 +32,7 @@ const getCLIIcon = () => {
   return `${style} CLI ${reset}`;
 };
 
-const template = ({ date, name, version, hasTypes, isCLI }) => {
+const template = ({ date, name, version, hasTypes, isCLI, dependencies }) => {
   const ts = hasTypes ? getTypeScriptIcon() : "";
   const cli = isCLI ? getCLIIcon() : "";
   const output = [`-`];
@@ -35,6 +41,16 @@ const template = ({ date, name, version, hasTypes, isCLI }) => {
   output.push(`${versionStyle}v${version}${reset}`);
   ts && output.push(ts);
   cli && output.push(cli);
+  if (dependencies) {
+    const depNames = Object.keys(dependencies);
+    if (depNames.length > 0) {
+      output.push(
+        `${blueText}${italic}(deps: ${depNames
+          .map((x) => `${yellowText}${x}`)
+          .join(`${blueText}, `)}${blueText})${reset}`
+      );
+    }
+  }
   return output.join(" ");
 };
 
@@ -81,7 +97,7 @@ async function* fetchUserPackages(username) {
   }
 }
 
-async function getUserPackages(username) {
+async function getUserPackages(username, withDependencies = false) {
   const result = [];
   const packages = fetchUserPackages(username);
 
@@ -98,19 +114,26 @@ async function getUserPackages(username) {
     const latestVersion = packageData["dist-tags"].latest;
     const hasTypes = packageData.versions[latestVersion].types;
 
-    result.push({
+    const packageInfo = {
       date: createdAt,
       name: packageName,
       version: package.version,
       hasTypes,
       isCLI,
-    });
+    };
+
+    if (withDependencies) {
+      packageInfo.dependencies =
+        packageData.versions[latestVersion].dependencies || {};
+    }
+
+    result.push(packageInfo);
   }
 
   return result;
 }
 
-getUserPackages(user)
+getUserPackages(user, withDependencies)
   .then((packages) => packages.sort((a, b) => a.date - b.date))
   .then((packages) => {
     if (packages.length === 0) {

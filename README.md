@@ -16,6 +16,7 @@
 - ✅ Show a list of all npm packages of the passed author with the creation date
 - ✅ Add `[TS]` icon if package is written in TypeScript
 - ✅ Add `[CLI]` icon if package support CLI
+- ✅ Display package dependencies with `--with-dependencies` flag
 
 ## CLI
 
@@ -26,8 +27,12 @@ npm install -g npm-get-author-packages
 ```
 
 ```bash
-npm-get-author-packages <username>
+npm-get-author-packages <username> [--with-dependencies]
 ```
+
+### Options
+
+- `--with-dependencies` - Display the list of dependencies for each package
 
 ## Example
 
@@ -37,10 +42,29 @@ npm-get-author-packages piecioshka
 
 ```bash
 Found 44 package(s):
-- 2015-08-20 vanilla-javascript v1.1.5
-- 2015-10-07 eslint-config-piecioshka v2.3.6
-- 2015-10-13 export-eslint-config v1.1.6  CLI
-- 2015-10-23 complete-string v3.0.0  TS
+# ...
+- 2016-07-25 pokemon-picker v1.2.10  CLI
+- 2016-10-26 encoding-checker v1.1.19  CLI
+- 2016-11-18 github-track-followers v2.1.5  CLI
+- 2017-01-16 less-compile-file v1.0.8
+- 2017-04-28 create-ts-project v1.0.13  CLI
+# ...
+```
+
+### With dependencies
+
+```bash
+npm-get-author-packages piecioshka --with-dependencies
+```
+
+```bash
+Found 44 package(s):
+# ...
+- 2016-07-25 pokemon-picker v1.2.10  CLI  (deps: commander)
+- 2016-10-26 encoding-checker v1.1.19  CLI  (deps: colors, glob, glob-promise, jschardet, yargs)
+- 2016-11-18 github-track-followers v2.1.5  CLI  (deps: colors, commander, debug, superagent)
+- 2017-01-16 less-compile-file v1.0.8 (deps: debug, fs-extra, glob, less)
+- 2017-04-28 create-ts-project v1.0.13  CLI  (deps: replace-in-files, yargs)
 # ...
 ```
 
