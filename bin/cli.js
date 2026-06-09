@@ -1,5 +1,28 @@
 #!/usr/bin/env node
 
+const args = process.argv.slice(2);
+
+if (args.includes("-h") || args.includes("--help")) {
+  console.log(
+    [
+      "Usage: npm-get-author-packages <username> [--with-dependencies]",
+      "",
+      "  Display npm packages of an author with their creation date.",
+      "",
+      "Arguments:",
+      "  username             npm author/maintainer login (e.g. piecioshka).",
+      "",
+      "Options:",
+      "  --with-dependencies  Also list each package's dependencies.",
+      "  -h, --help           Show this help and exit.",
+      "",
+      "Example:",
+      "  npm-get-author-packages piecioshka",
+    ].join("\n")
+  );
+  process.exit(0);
+}
+
 const user = process.argv[2];
 const withDependencies = process.argv.includes("--with-dependencies");
 
