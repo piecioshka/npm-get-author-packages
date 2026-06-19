@@ -9,6 +9,8 @@
 
 🔨 Display npm author packages with the creation date
 
+![](demo/npm-get-author-packages.gif)
+
 > Give a ⭐️ if this project helped you!
 
 ## Features
