@@ -82,4 +82,4 @@ Feel free to check [issues page](https://github.com/piecioshka/npm-get-author-pa
 
 ## License
 
-[The MIT License](https://piecioshka.mit-license.org) @ 2025
+[The MIT License](http://piecioshka.mit-license.org) @ 2026
