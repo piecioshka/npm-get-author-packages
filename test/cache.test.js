@@ -9,7 +9,7 @@ const {
   writeCache,
   resolveCacheDir,
   resolveCacheTtlHours,
-} = require("../bin/cache");
+} = require("../src/cache");
 
 const URL = "https://registry.npmjs.org/npm-get-author-packages";
 

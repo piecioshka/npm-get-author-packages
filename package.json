@@ -15,11 +15,15 @@
   "engines": {
     "node": ">=18"
   },
+  "main": "index.js",
   "files": [
-    "bin",
+    "bin/",
+    "src/",
+    "index.js",
     "package.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "!**/*.test.*"
   ],
   "keywords": [
     "cli",
