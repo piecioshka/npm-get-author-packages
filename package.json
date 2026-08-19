@@ -39,6 +39,9 @@
   "bin": {
     "npm-get-author-packages": "bin/cli.js"
   },
+  "scripts": {
+    "test": "node --test"
+  },
   "devDependencies": {
     "@types/node": "^18.19.130"
   }

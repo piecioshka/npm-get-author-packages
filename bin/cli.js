@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
+const { readCache, writeCache } = require("./cache");
+
 const args = process.argv.slice(2);
 
 if (args.includes("-h") || args.includes("--help")) {
   console.log(
     [
-      "Usage: npm-get-author-packages <username> [--with-dependencies]",
+      "Usage: npm-get-author-packages <username> [--with-dependencies] [--no-cache]",
       "",
       "  Display npm packages of an author with their creation date.",
       "",
@@ -14,7 +16,14 @@ if (args.includes("-h") || args.includes("--help")) {
       "",
       "Options:",
       "  --with-dependencies  Also list each package's dependencies.",
+      "  --no-cache           Skip the disk cache and query the registry.",
       "  -h, --help           Show this help and exit.",
+      "",
+      "Environment:",
+      "  CACHE_TTL_HOURS      How long a cached response stays valid",
+      "                       (default: 12, 0 = forever).",
+      "",
+      "Cached responses live in ~/.cache/npm-get-author-packages.",
       "",
       "Example:",
       "  npm-get-author-packages piecioshka",
@@ -25,10 +34,11 @@ if (args.includes("-h") || args.includes("--help")) {
 
 const user = process.argv[2];
 const withDependencies = process.argv.includes("--with-dependencies");
+const useCache = !process.argv.includes("--no-cache");
 
-if (!user) {
+if (!user || user.startsWith("--")) {
   console.log(
-    "Usage: npm-get-author-packages <username> [--with-dependencies]"
+    "Usage: npm-get-author-packages <username> [--with-dependencies] [--no-cache]"
   );
   process.exit(1);
 }
@@ -78,11 +88,25 @@ const template = ({ date, name, version, hasTypes, isCLI, dependencies }) => {
 };
 
 async function makeRequest(url) {
+  if (useCache) {
+    const cached = readCache(url);
+    if (cached !== null) {
+      return cached;
+    }
+  }
+
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`HTTP Error: ${response.status}`);
   }
-  return await response.json();
+
+  const body = await response.json();
+
+  // A fresh response refreshes the cache even under --no-cache: the flag is
+  // about not trusting what is stored, not about refusing to store.
+  writeCache(url, body);
+
+  return body;
 }
 
 async function* fetchUserPackages(username) {
