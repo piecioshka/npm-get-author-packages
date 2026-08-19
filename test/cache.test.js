@@ -161,7 +161,14 @@ test("a corrupted entry is treated as a missing one", () => {
 });
 
 test("an unwritable cache directory does not throw", () => {
+  // A regular file can never be a parent directory, so mkdir fails with
+  // ENOTDIR everywhere. A hard-coded /dev/null would not do: on Windows that
+  // is an ordinary relative path, which mkdir would happily create - the test
+  // would pass while testing nothing, and leave a stray directory behind.
+  const file = path.join(sandbox(), "not-a-directory");
+  fs.writeFileSync(file, "", "utf-8");
+
   assert.doesNotThrow(() => {
-    writeCache(URL, { name: "a" }, path.join("/dev/null", "nope"));
+    writeCache(URL, { name: "a" }, path.join(file, "nope"));
   });
 });
