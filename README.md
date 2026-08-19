@@ -19,6 +19,7 @@
 - ✅ Add `[TS]` icon if package is written in TypeScript
 - ✅ Add `[CLI]` icon if package support CLI
 - ✅ Display package dependencies with `--with-dependencies` flag
+- 💾 Cache registry responses on disk, so a rerun costs no requests at all
 
 ## CLI
 
@@ -29,12 +30,13 @@ npm install -g npm-get-author-packages
 ```
 
 ```bash
-npm-get-author-packages <username> [--with-dependencies]
+npm-get-author-packages <username> [--with-dependencies] [--no-cache]
 ```
 
 ### Options
 
 - `--with-dependencies` - Display the list of dependencies for each package
+- `--no-cache` - Ignore cached entries for this run and query the registry
 
 ## Example
 
@@ -68,6 +70,29 @@ Found 44 package(s):
 - 2017-01-16 less-compile-file v1.0.8 (deps: debug, fs-extra, glob, less)
 - 2017-04-28 create-ts-project v1.0.13  CLI  (deps: replace-in-files, yargs)
 # ...
+```
+
+## Caching
+
+Listing an author costs one search request plus one packument request per
+package - around 45 requests for a 44-package author. Those responses are
+cached on disk, so a rerun (adding `--with-dependencies`, coming back to the
+same author) costs nothing.
+
+Entries live in `$XDG_CACHE_HOME/npm-get-author-packages`, falling back to
+`~/.cache/npm-get-author-packages`. The cache belongs to the user, not to the
+package - installed globally, the package directory sits inside `node_modules`.
+
+Entries are valid for **12 hours**. Set `CACHE_TTL_HOURS` to change the window,
+or `0` to keep them forever. `--no-cache` skips reading the cache for a single
+run; fresh responses still refresh it.
+
+```bash
+# Ignore anything cached more than an hour ago
+CACHE_TTL_HOURS=1 npm-get-author-packages piecioshka
+
+# Query the registry regardless of what is stored
+npm-get-author-packages piecioshka --no-cache
 ```
 
 ## 🤝 Contributing
