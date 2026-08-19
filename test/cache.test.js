@@ -151,6 +151,18 @@ test("an entry with no usable timestamp is discarded", () => {
   assert.equal(readCache(URL, directory), null);
 });
 
+test("valid JSON that is not an entry is treated as a missing one", () => {
+  // "null" parses fine, and reading .savedAt off it used to throw.
+  for (const content of ["null", "42", '"text"', "[]"]) {
+    const directory = sandbox();
+    writeCache(URL, { name: "a" }, directory);
+    const [file] = fs.readdirSync(directory);
+    fs.writeFileSync(path.join(directory, file), content, "utf-8");
+
+    assert.equal(readCache(URL, directory), null, `for content: ${content}`);
+  }
+});
+
 test("a corrupted entry is treated as a missing one", () => {
   const directory = sandbox();
   writeCache(URL, { name: "a" }, directory);

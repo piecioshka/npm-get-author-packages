@@ -86,6 +86,12 @@ function readCache(url, directory = resolveCacheDir()) {
     return null;
   }
 
+  // A file holding valid JSON that is not an entry - "null", "42", an array -
+  // is as useless as a corrupted one, and reading a field off null throws.
+  if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
+    return null;
+  }
+
   return isExpired(entry.savedAt) ? null : (entry.body ?? null);
 }
 
