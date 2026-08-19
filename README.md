@@ -36,7 +36,7 @@ npm-get-author-packages <username> [--with-dependencies] [--no-cache]
 ### Options
 
 - `--with-dependencies` - Display the list of dependencies for each package
-- `--no-cache` - Skip the disk cache and query the registry
+- `--no-cache` - Ignore cached entries for this run and query the registry
 
 ## Example
 
