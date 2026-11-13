@@ -1,4 +1,4 @@
-Output demo/npm-get-author-packages.gif
+Output docs/demo.gif
 
 Require npm-get-author-packages
 
